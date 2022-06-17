@@ -30,12 +30,10 @@ def get_cafe_distance(cafe):
     return cafe['distance']
 
 
-def create_nearest_cafes(place, file_name='cafes_map'):
+def create_nearest_cafes(place, apikey, file_name='cafes_map'):
     with open('coffee.json', 'r', encoding='CP1251') as file:
         file_contents = file.read()
     cafes_file = json.loads(file_contents)
-    load_dotenv()
-    apikey = os.environ['MAPS_YANDEX_APIKEY']
     place_cords = fetch_coordinates(apikey, place)
     place_cords_for_geo = (place_cords[1], place_cords[0])
     cafes = []
@@ -70,8 +68,10 @@ def show_cafes():
 
 
 if __name__ == '__main__':
+    apikey = os.environ['MAPS_YANDEX_APIKEY']
+    load_dotenv()
     place = input('Где вы находитесь: ')
-    create_nearest_cafes(place)
+    create_nearest_cafes(place, apikey)
     cafe_app = Flask(__name__)
     cafe_app.add_url_rule('/', 'Caffee', show_cafes)
     cafe_app.run('0.0.0.0')
