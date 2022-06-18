@@ -68,8 +68,8 @@ def show_cafes():
 
 
 if __name__ == '__main__':
-    apikey = os.environ['MAPS_YANDEX_APIKEY']
     load_dotenv()
+    apikey = os.environ['MAPS_YANDEX_APIKEY']
     place = input('Где вы находитесь: ')
     create_nearest_cafes(place, apikey)
     cafe_app = Flask(__name__)
